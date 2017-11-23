@@ -3,9 +3,11 @@ DRAGAN Implementation with Auxiliary Classifier based on a modification from SRR
 
 Attempt at recreating results from: Towards the Automatic Anime Characters Creation with Generative Adversarial Networks (https://arxiv.org/pdf/1708.05509.pdf)
 
+Experimented with the CelebA Dataset.
+
 TODO:
-Add results on tagged anime dataset
-Double check training procedure
+－ Add results on tagged anime dataset
+－ Double check training procedure
 
 Pretrained model available at https://drive.google.com/open?id=1JTpjlfVO-Frjr9_rdytxiuQZU7ixCF53
 
