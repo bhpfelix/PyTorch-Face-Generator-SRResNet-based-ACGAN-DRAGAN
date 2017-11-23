@@ -6,7 +6,7 @@ DATA_PATH = '/home/xander/data/img_align_celeba/'
 
 resume_file = 'models/Epoch: 018.pt'
 cuda = torch.cuda.is_available()
-batch_size = 48
+batch_size = 64
 z_dim = 128
 tag_num = 19
 imsize = 128

@@ -6,8 +6,9 @@ Attempt at recreating results from: Towards the Automatic Anime Characters Creat
 Experimented with the CelebA Dataset.
 
 TODO:
-－ Add results on tagged anime dataset
-－ Double check training procedure
+- Add results on tagged anime dataset
+- Double check training procedure
+- Add Interpolation Results
 
 Pretrained model available at https://drive.google.com/open?id=1JTpjlfVO-Frjr9_rdytxiuQZU7ixCF53
 
