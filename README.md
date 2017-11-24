@@ -6,6 +6,7 @@ Attempt at recreating results from: Towards the Automatic Anime Characters Creat
 Experimented with the CelebA Dataset.
 
 TODO:
+- Switch to StableBCELoss, add back sigmoid, fix tag noise sampling
 - Add results on tagged anime dataset
 - Double check training procedure
 - Add Interpolation Results
