@@ -89,7 +89,7 @@ for epoch in range(start_epoch, max_epochs):
 
         # train with fake
         z.data.normal_(0, 1)
-        tags.data.random_(to=1) # Continuous
+        tags.data.uniform_(to=1) # Continuous
         # tags.data.fill_(0.5)           # Discrete binary string
         # tags.data.bernoulli_()
         rep = torch.cat((z, tags.clone()), 1)
@@ -124,7 +124,7 @@ for epoch in range(start_epoch, max_epochs):
         # Update generator
         generator.zero_grad()
         z.data.normal_(0, 1)
-        tags.data.random_(to=1) # Continuous
+        tags.data.uniform_(to=1) # Continuous
         # tags.data.fill_(0.5)           # Discrete binary string
         # tags.data.bernoulli_()
         rep = torch.cat((z, tags.clone()), 1)
