@@ -54,7 +54,7 @@ if resume_file:
         print("=> no checkpoint found at '{}'".format(resume_file))
 
 
-criterion = StableBCELoss() # torch.nn.BCEWithLogitsLoss()
+criterion = torch.nn.BCEWithLogitsLoss() # StableBCELoss() #
 X = Variable(torch.FloatTensor(batch_size, 3, imsize, imsize))
 z = Variable(torch.FloatTensor(batch_size, z_dim))
 tags = Variable(torch.FloatTensor(batch_size, tag_num))
@@ -154,7 +154,7 @@ for epoch in range(start_epoch, max_epochs):
 
             is_best = False
 
-            ### Should not be able to define best model..
+            ### Should not be able to define a best model..
             # total_loss = loss_d.data[0] + loss_g.data[0]
             # if total_loss < best_loss:
             #     best_loss = total_loss

@@ -164,8 +164,8 @@ class Discriminator(nn.Module):
 
         x = x.view(x.size()[0], -1)
 
-        # return self.head1(x), self.head2(x)
-        return self.sigmoid(self.head1(x)), self.sigmoid(self.head2(x))
+        return self.head1(x), self.head2(x) # Use with numerically stable torch.nn.BCEWithLogitsLoss() during training
+        # return self.sigmoid(self.head1(x)), self.sigmoid(self.head2(x))
 
 # g = Generator()
 # d = Discriminator()
