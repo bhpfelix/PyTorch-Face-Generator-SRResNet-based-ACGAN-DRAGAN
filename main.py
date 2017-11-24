@@ -54,7 +54,7 @@ if resume_file:
         print("=> no checkpoint found at '{}'".format(resume_file))
 
 
-criterion = torch.nn.BCEWithLogitsLoss()
+criterion = StableBCELoss() # torch.nn.BCEWithLogitsLoss()
 X = Variable(torch.FloatTensor(batch_size, 3, imsize, imsize))
 z = Variable(torch.FloatTensor(batch_size, z_dim))
 tags = Variable(torch.FloatTensor(batch_size, tag_num))
@@ -89,8 +89,9 @@ for epoch in range(start_epoch, max_epochs):
 
         # train with fake
         z.data.normal_(0, 1)
-        tags.data.fill_(0.5)
-        tags.data.bernoulli_()
+        tags.data.random_(from=0, to=1) # Continuous
+        # tags.data.fill_(0.5)           # Discrete binary string
+        # tags.data.bernoulli_()
         rep = torch.cat((z, tags.clone()), 1)
         fake = generator.forward(rep).detach()
         pred_fake, pred_fake_tag = discriminator(fake)
@@ -123,8 +124,9 @@ for epoch in range(start_epoch, max_epochs):
         # Update generator
         generator.zero_grad()
         z.data.normal_(0, 1)
-        tags.data.fill_(0.5)
-        tags.data.bernoulli_()
+        tags.data.random_(from=0, to=1) # Continuous
+        # tags.data.fill_(0.5)           # Discrete binary string
+        # tags.data.bernoulli_()
         rep = torch.cat((z, tags.clone()), 1)
         gen = generator(rep)
         pred_gen, pred_gen_tag = discriminator(gen)
@@ -151,10 +153,12 @@ for epoch in range(start_epoch, max_epochs):
                     'samples/fake_samples_epoch_%03d.png' % epoch)
 
             is_best = False
-            total_loss = loss_d.data[0] + loss_g.data[0]
-            if total_loss < best_loss:
-                best_loss = total_loss
-                is_best = True
+
+            ### Should not be able to define best model..
+            # total_loss = loss_d.data[0] + loss_g.data[0]
+            # if total_loss < best_loss:
+            #     best_loss = total_loss
+            #     is_best = True
 
             save_checkpoint({
                 'epoch': epoch,

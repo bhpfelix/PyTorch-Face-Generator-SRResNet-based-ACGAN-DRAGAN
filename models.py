@@ -11,6 +11,14 @@ from torch.autograd import Variable
 def swish(x):
     return x * F.sigmoid(x)
 
+class StableBCELoss(nn.modules.Module):
+   def __init__(self):
+         super(StableBCELoss, self).__init__()
+   def forward(self, input, target):
+         neg_abs = - input.abs()
+         loss = input.clamp(min=0) - input * target + (1 + neg_abs.exp()).log()
+         return loss.mean()
+
 class FeatureExtractor(nn.Module):
     def __init__(self, cnn, feature_layer=11):
         super(FeatureExtractor, self).__init__()
@@ -143,7 +151,7 @@ class Discriminator(nn.Module):
         self.head2 = nn.Linear(1024*2*2, tag_num)
 
         self.ac = nn.LeakyReLU()
-        # self.sigmoid = nn.Sigmoid()
+        self.sigmoid = nn.Sigmoid()
 
     def forward(self, x):
         x = self.ac(self.conv1(x))
@@ -156,7 +164,8 @@ class Discriminator(nn.Module):
 
         x = x.view(x.size()[0], -1)
 
-        return self.head1(x), self.head2(x)
+        # return self.head1(x), self.head2(x)
+        return self.sigmoid(self.head1(x)), self.sigmoid(self.head2(x))
 
 # g = Generator()
 # d = Discriminator()
